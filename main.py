@@ -20,7 +20,13 @@ class WndProc(QMainWindow):
         continue
 
     def save_file_as():
-        continue
+        options = QtWidgets.QFileDialog.Options()
+        fileName, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Сохранить как...", "", "Text Files (*.txt)", options)
+        if fileName:
+            file = open(fileName, 'w')
+            text = self.ui.plainTextEdit.getText()
+            file.write(text)
+            file.close()
 
 
 if __name__ == '__main__':
