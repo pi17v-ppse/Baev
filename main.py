@@ -8,6 +8,8 @@ class WndProc(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.ui.action_open.connect(self.open_file)
+
     def open_file():
         continue
 
