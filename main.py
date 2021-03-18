@@ -18,7 +18,11 @@ class WndProc(QMainWindow):
             self.ui.plainTextEdit.setText(fileName)
 
     def save_file():
-        continue
+        if path != '':
+            file = open(path, 'w')
+            text = self.ui.plainTextEdit.getText()
+            file.write(text)
+            file.close()
 
     def save_file_as():
         continue
