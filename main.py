@@ -11,11 +11,9 @@ class WndProc(QMainWindow):
         self.ui.action_open.connect(self.open_file)
 
     def open_file():
-        options = QtWidgets.QFileDialog.Options()
-        fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Открыть", "", "Text Files (*.txt)", options)
+        fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Открыть", "", "Text Files (*.txt)", options = QtWidgets.QFileDialog.Options())
         if fileName:
-            file = open(fileName, 'r')
-            self.ui.plainTextEdit.setText(file.read())
+            self.ui.plainTextEdit.setText(fileName)
 
     def open_file_as():
         continue
