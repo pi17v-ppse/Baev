@@ -9,7 +9,7 @@ class WndProc(QMainWindow):
         self.ui.setupUi(self)
         self.path = ''
         self.ui.action_open.connect(self.open_file)
-        self.ui.action_save.connect(self.open_file)
+        self.ui.action_save.connect(self.save_file)
         self.ui.action_save_as.connect(self.save_as_file)
 
     def open_file():
