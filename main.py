@@ -9,6 +9,7 @@ class WndProc(QMainWindow):
         self.ui.setupUi(self)
 
         self.ui.action_open.connect(self.open_file)
+        self.ui.action_save_as.connect(self.save_as_file)
 
     def open_file():
         fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Открыть", "", "Text Files (*.txt)", options = QtWidgets.QFileDialog.Options())
