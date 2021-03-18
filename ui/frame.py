@@ -36,12 +36,9 @@ class Ui_MainWindow(object):
         self.action_open.setObjectName("action_open")
         self.action_save = QtWidgets.QAction(MainWindow)
         self.action_save.setObjectName("action_save")
-        self.action_open_as = QtWidgets.QAction(MainWindow)
-        self.action_open_as.setObjectName("action_open_as")
         self.action_save_as = QtWidgets.QAction(MainWindow)
         self.action_save_as.setObjectName("action_save_as")
         self.menu.addAction(self.action_open)
-        self.menu.addAction(self.action_open_as)
         self.menu.addAction(self.action_save)
         self.menu.addAction(self.action_save_as)
         self.menubar.addAction(self.menu.menuAction())
@@ -55,7 +52,6 @@ class Ui_MainWindow(object):
         self.menu.setTitle(_translate("MainWindow", "Файл"))
         self.action_open.setText(_translate("MainWindow", "Открыть"))
         self.action_save.setText(_translate("MainWindow", "Сохранить"))
-        self.action_open_as.setText(_translate("MainWindow", "Открыть как"))
         self.action_save_as.setText(_translate("MainWindow", "Сохранить как"))
 
 

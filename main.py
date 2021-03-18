@@ -15,9 +15,6 @@ class WndProc(QMainWindow):
         if fileName:
             self.ui.plainTextEdit.setText(fileName)
 
-    def open_file_as():
-        continue
-
     def save_file():
         continue
 
