@@ -10,6 +10,7 @@ class WndProc(QMainWindow):
         self.path = ''
         self.ui.action_open.connect(self.open_file)
         self.ui.action_save.connect(self.open_file)
+        self.ui.action_save_as.connect(self.save_as_file)
 
     def open_file():
         fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Открыть", "", "Text Files (*.txt)", options = QtWidgets.QFileDialog.Options())
@@ -24,7 +25,9 @@ class WndProc(QMainWindow):
             self.save_file_as()
 
     def save_file_as():
-        continue
+        fileName, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Сохранить как...", "", "Text Files (*.txt)", options = QtWidgets.QFileDialog.Options())
+        if fileName:
+            open(fileName, 'w').write(self.ui.plainTextEdit.getText())
 
 
 if __name__ == '__main__':
