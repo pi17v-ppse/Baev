@@ -1,3 +1,5 @@
+import sys
+
 from PyQt5 import QtWidgets
 from ui.frame import Ui_MainWindow
 
@@ -13,7 +15,7 @@ from ui.frame import Ui_MainWindow
     @copyright  GNU Public License
     @todo       Реализовать функции открытия и сохранения
 """
-class WndProc(QMainWindow):
+class WndProc(QtWidgets.QMainWindow):
     def __init__(self):
         super(WndProc, self).__init__()
         """ Контейнер с параметрами пользовательского интерфейса
@@ -47,7 +49,7 @@ class WndProc(QMainWindow):
         @param      null
         @return     null
     """
-    def open_file():
+    def open_file(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Открыть", "", "Text Files (*.txt)", options = QtWidgets.QFileDialog.Options())
         if fileName:
             self.path = fileName
@@ -65,7 +67,7 @@ class WndProc(QMainWindow):
         @param      null
         @return     null
     """
-    def save_file():
+    def save_file(self):
         if path != '':
             file = open(path, 'w').write(self.ui.plainTextEdit.getText())
         else:
@@ -81,7 +83,7 @@ class WndProc(QMainWindow):
         @param      null
         @return     null
     """
-    def save_file_as():
+    def save_file_as(self):
         fileName, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Сохранить как...", "", "Text Files (*.txt)", options = QtWidgets.QFileDialog.Options())
         if fileName:
             open(fileName, 'w').write(self.ui.plainTextEdit.getText())

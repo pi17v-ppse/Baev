@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter lang="ru">                                        
+    <title>Notepad</title>
+    <sect1>
+        <title>Краткое описание приложения</title>
+        <para>
+            Приложение Notepad предназначенно для редактирования текстовых файлов формата .txt
+        </para>
+        <para>
+            Интерфейс программы спроектирован таким образом, чтобы имитировать внешний 
+            вид блокнота в операционной системе Windows. Меню содержит один пункт "Файл"
+            и три подпункта для открытия существующих txt-файлов и сохранения новых/измененных
+        </para>
+        <para>
+            Пкункт меню "Файл" содержит следующие операции:
+        </para>
+        <orderedlist>
+            <listitem>
+                <para>Операция открытия существующего файла "Открыть"</para>
+            </listitem>
+            <listitem>
+                <para>Операция сохранения изменений в файле "Сохранить"</para>
+            </listitem>
+            <listitem>
+                <para>Операция сохранения изменений/нового содержимого в другом месте носителя "Сохранить как"</para>
+            </listitem>
+        </orderedlist> 
+    </sect1> 
+    <sect1>
+        <title>Скриншоты работы приложения</title>
+        <figure>
+            <title>Интерфейс пользователя</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="images/Screenchot_1.png" />
+                </imageobject>
+            </mediaobject>
+        </figure>
+        <figure>
+            <title>Пункты меню</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="images/Screenchot_2.png" />
+                </imageobject>
+            </mediaobject>
+        </figure>
+    </sect1>   
+    <sect1>
+        <title>Пример разработанного кода приложения</title>
+        <para>
+            Для разработки пользовательского интерфейса использовался QtDesigner для создания кросплатформенного GUI.
+            Пример разметки приведен ниже.
+        </para>
+        <example>
+            <title>Пример разметки пользовательского интерфейса</title>
+            <para>
+                <programlisting>
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(1024, 720)
+        MainWindow.setMinimumSize(QtCore.QSize(800, 600))
+        MainWindow.setMaximumSize(QtCore.QSize(3440, 1440))
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.plainTextEdit.setGeometry(QtCore.QRect(0, 0, 1024, 720))
+        self.plainTextEdit.setObjectName("plainTextEdit")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 21))
+        self.menubar.setObjectName("menubar")
+        self.menu = QtWidgets.QMenu(self.menubar)
+        self.menu.setObjectName("menu")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+        self.action_open = QtWidgets.QAction(MainWindow)
+        self.action_open.setObjectName("action_open")
+        self.action_save = QtWidgets.QAction(MainWindow)
+        self.action_save.setObjectName("action_save")
+        self.action_save_as = QtWidgets.QAction(MainWindow)
+        self.action_save_as.setObjectName("action_save_as")
+        self.menu.addAction(self.action_open)
+        self.menu.addAction(self.action_save)
+        self.menu.addAction(self.action_save_as)
+        self.menubar.addAction(self.menu.menuAction())
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.menu.setTitle(_translate("MainWindow", "Файл"))
+        self.action_open.setText(_translate("MainWindow", "Открыть"))
+        self.action_save.setText(_translate("MainWindow", "Сохранить"))
+        self.action_save_as.setText(_translate("MainWindow", "Сохранить как"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+                 </programlisting>
+            </para>
+        </example>  
+        <para>
+            Для реализации работы с текстовыми файлами использовалзя язык программирования Python.
+        </para>
+        
+        <example>
+            <title>Листинг приложения</title>
+            <para>
+                <programlisting>
+from PyQt5 import QtWidgets
+from ui.frame import Ui_MainWindow
+
+
+class WndProc(QMainWindow):
+    def __init__(self):
+        super(WndProc, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.path = ''
+        self.ui.action_open.connect(self.open_file)
+        self.ui.action_save.connect(self.save_file)
+        self.ui.action_save_as.connect(self.save_as_file)
+
+    def open_file():
+        fileName, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Открыть", "", "Text Files (*.txt)", options = QtWidgets.QFileDialog.Options())
+        if fileName:
+            self.path = fileName
+            self.ui.plainTextEdit.setText(fileName)
+
+    def save_file():
+        if path != '':
+            file = open(path, 'w').write(self.ui.plainTextEdit.getText())
+        else:
+            self.save_file_as()
+
+    def save_file_as():
+        fileName, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Сохранить как...", "", "Text Files (*.txt)", options = QtWidgets.QFileDialog.Options())
+        if fileName:
+            open(fileName, 'w').write(self.ui.plainTextEdit.getText())
+
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication([])
+    application = WndProc()
+    application.show()
+    sys.exit(app.exec())
+                 </programlisting>
+                </para>
+        </example>  
+        <note>
+            <para> 
+                Код приложения находится в свободном доступе и может быть найден в репозитории на GitHub. 
+            </para>
+            <para>
+                <ulink url="https://github.com/pi17v-ppse/Baev"> Notepad </ulink>
+            </para>
+        </note>
+    </sect1>
+</chapter>
